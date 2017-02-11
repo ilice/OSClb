@@ -5,9 +5,9 @@
 
 This image is updated via [commits and releases to the `ilice/OSClb` GitHub repo](https://github.com/ilice/OSClb).
 
-# What is OSCWeb?
+# What is OSClb?
 
-OSCWeb is the load balancer of Open Smart Country, a new project with the intent of revolution land use. It's based on nginx and uses [Let's Encrypt Certificate Authority](https://letsencrypt.org).
+OSClb is the load balancer of Open Smart Country, a new project with the intent of revolution land use. It's based on nginx and uses [Let's Encrypt Certificate Authority](https://letsencrypt.org).
 
 > [OSClb wiki](https://github.com/ilice/OSClb/wiki)
 

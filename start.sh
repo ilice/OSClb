@@ -6,10 +6,12 @@ echo build starting nginx config
 
 echo replacing __www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN
 echo replacing __kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN
+echo replacing __elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN
 
 # Put your domain name into the nginx reverse proxy config.
 sed -i "s/__www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/conf.d/osc.conf
 sed -i "s/__kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/conf.d/osc.conf
+sed -i "s/__elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/conf.d/osc.conf
 
 cat /etc/nginx/conf.d/osc.conf
 echo .
@@ -22,9 +24,13 @@ if [ -z "$OPENSMARTCOUNTRY_DOMAIN" ]; then
     exit 1
 fi
 
-# Check user has specified domain name
 if [ -z "$KIBANA_OPENSMARTCOUNTRY_DOMAIN" ]; then
     echo "Need to set KIBANA_OPENSMARTCOUNTRY_DOMAIN (to a letsencrypt-registered name)."
+    exit 1
+fi
+
+if [ -z "$ELASTIC_OPENSMARTCOUNTRY_DOMAIN" ]; then
+    echo "Need to set ELASTIC_OPENSMARTCOUNTRY_DOMAIN (to a letsencrypt-registered name)."
     exit 1
 fi
 
@@ -42,6 +48,12 @@ do
     sleep 2
 done
 
+echo Waiting for folder /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN to exist
+while [ ! -d /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN ] ;
+do
+    sleep 2
+done
+
 while [ ! -f /etc/letsencrypt/live/$OPENSMARTCOUNTRY_DOMAIN/fullchain.pem ] ;
 do
     echo Waiting for file fullchain.pem to exist
@@ -49,6 +61,12 @@ do
 done
 
 while [ ! -f /etc/letsencrypt/live/$KIBANA_OPENSMARTCOUNTRY_DOMAIN/fullchain.pem ] ;
+do
+    echo Waiting for file fullchain.pem to exist
+    sleep 2
+done
+
+while [ ! -f /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/fullchain.pem ] ;
 do
     echo Waiting for file fullchain.pem to exist
     sleep 2
@@ -66,12 +84,20 @@ do
   sleep 2
 done
 
+while [ ! -f /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/privkey.pem ] ;
+do
+  echo Waiting for file privkey.pem to exist
+  sleep 2
+done
+
 echo replacing __www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN
 echo replacing __kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN
+echo replacing __elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN
 
 # Put your domain name into the nginx reverse proxy config.
 sed -i "s/__www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/osc-secure.conf
 sed -i "s/__kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/osc-secure.conf
+sed -i "s/__kibana.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/osc-secure.conf
 
 #go!
 kill $(ps aux | grep '[n]ginx' | awk '{print $2}')

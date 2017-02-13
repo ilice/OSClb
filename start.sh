@@ -57,47 +57,6 @@ else
   sed -i "s/__www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/osc-secure.conf
 
 
-  echo Waiting for folder /etc/letsencrypt/live/$KIBANA_OPENSMARTCOUNTRY_DOMAIN to exist
-  while [ ! -d /etc/letsencrypt/live/$KIBANA_OPENSMARTCOUNTRY_DOMAIN ] ;
-  do
-      sleep 2
-  done
-
-  echo Waiting for folder /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN to exist
-  while [ ! -d /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN ] ;
-  do
-      sleep 2
-  done
-
-
-
-  while [ ! -f /etc/letsencrypt/live/$KIBANA_OPENSMARTCOUNTRY_DOMAIN/fullchain.pem ] ;
-  do
-      echo Waiting for file fullchain.pem to exist
-      sleep 2
-  done
-
-  while [ ! -f /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/fullchain.pem ] ;
-  do
-      echo Waiting for file fullchain.pem to exist
-      sleep 2
-  done
-
-
-
-  while [ ! -f /etc/letsencrypt/live/$KIBANA_OPENSMARTCOUNTRY_DOMAIN/privkey.pem ] ;
-  do
-    echo Waiting for file privkey.pem to exist
-    sleep 2
-  done
-
-  while [ ! -f /etc/letsencrypt/live/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/privkey.pem ] ;
-  do
-    echo Waiting for file privkey.pem to exist
-    sleep 2
-  done
-
-
   echo replacing __kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN
   echo replacing __elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN
 

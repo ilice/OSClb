@@ -25,7 +25,7 @@ Runs container in background and prints container ID.
 
 Then you can hit make a curl to the container ip and port
 ```
-$ curl http://<container-ip>:80`
+$ curl http://<container-ip>:80
 ```
 
 ## Starting simple nginx HTTP and reverse proxy server and exposing a port in the host machine
@@ -37,6 +37,14 @@ $ docker run -ti -p 80:80 -d --name osclb teanocrata/osclb
 This binds port 80 of the container to port 80 on the host machine.
 
 Then you can hit `http://localhost:80` or `http://host-ip:80` in your browser.
+
+## Starting simple nginx HTTP and reverse proxy using a nginx-osc.conf
+
+nginx-osc.conf host file must always be specified with its absolute path
+
+```console
+$ docker run -ti -p 80:80 -d --name osclb -v ~/nginx-osc.conf:/etc/nginx/nginx-osc.conf teanocrata/osclb
+```
 
 ## Run a console in the container
 

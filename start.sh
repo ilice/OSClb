@@ -5,18 +5,9 @@ echo build starting nginx config
 
 
 echo replacing ___my.example.com___/$MY_DOMAIN_NAME
-echo replacing ___LETSENCRYPT_IP___/$LETSENCRYPT_PORT_80_TCP_ADDR
-echo replacing ___LETSENCRYPT_PORT___/$LETSENCRYPT_PORT_80_TCP_PORT
-#echo replacing ___APPLICATION_IP___/$APP_PORT_80_TCP_ADDR
-#echo replacing ___APPLICATION_PORT___/$APP_PORT_80_TCP_PORT
 
 # Put your domain name into the nginx reverse proxy config.
 sed -i "s/___my.example.com___/$MY_DOMAIN_NAME/g" /etc/nginx/conf.d/osc.conf
-# Add your app's container IP and port into config
-#sed -i "s/___APPLICATION_IP___/$APP_PORT_80_TCP_ADDR/g" /etc/nginx/conf.d/osc.conf
-#sed -i "s/___APPLICATION_PORT___/$APP_PORT_80_TCP_PORT/g" /etc/nginx/conf.d/osc.conf
-sed -i "s/___LETSENCRYPT_IP___/$LETSENCRYPT_PORT_80_TCP_ADDR/g" /etc/nginx/conf.d/osc.conf
-sed -i "s/___LETSENCRYPT_PORT___/$LETSENCRYPT_PORT_80_TCP_PORT/g" /etc/nginx/conf.d/osc.conf
 
 cat /etc/nginx/conf.d/osc.conf
 echo .
@@ -50,26 +41,9 @@ sleep 2
 done
 
 echo replacing ___my.example.com___/$MY_DOMAIN_NAME
-echo replacing ___LETSENCRYPT_IP___/$LETSENCRYPT_PORT_80_TCP_ADDR
-echo replacing ___LETSENCRYPT_PORT___/$LETSENCRYPT_PORT_80_TCP_PORT
-echo replacing ___LETSENCRYPT_HTTPS_IP___/$LETSENCRYPT_PORT_443_TCP_ADDR
-echo replacing ___LETSENCRYPT_HTTPS_PORT___/$LETSENCRYPT_PORT_443_TCP_PORT
-echo replacing ___APPLICATION_IP___/$APP_PORT_80_TCP_ADDR
-echo replacing ___APPLICATION_PORT___/$APP_PORT_80_TCP_PORT
-
 
 # Put your domain name into the nginx reverse proxy config.
 sed -i "s/___my.example.com___/$MY_DOMAIN_NAME/g" /etc/nginx/osc-secure.conf
-
-# Add LE container IP and port into config
-sed -i "s/___LETSENCRYPT_IP___/$LETSENCRYPT_PORT_80_TCP_ADDR/g" /etc/nginx/osc-secure.conf
-sed -i "s/___LETSENCRYPT_PORT___/$LETSENCRYPT_PORT_80_TCP_PORT/g" /etc/nginx/osc-secure.conf
-sed -i "s/___LETSENCRYPT_HTTPS_IP___/$LETSENCRYPT_PORT_443_TCP_ADDR/g" /etc/nginx/osc-secure.conf
-sed -i "s/___LETSENCRYPT_HTTPS_PORT___/$LETSENCRYPT_PORT_443_TCP_PORT/g" /etc/nginx/osc-secure.conf
-
-# Add your app's container IP and port into config
-sed -i "s/___APPLICATION_IP___/$APP_PORT_80_TCP_ADDR/g" /etc/nginx/osc-secure.conf
-sed -i "s/___APPLICATION_PORT___/$APP_PORT_80_TCP_PORT/g" /etc/nginx/osc-secure.conf
 
 #go!
 kill $(ps aux | grep '[n]ginx' | awk '{print $2}')

@@ -7,15 +7,13 @@ This image is updated via [commits and releases to the `ilice/OSClb` GitHub repo
 
 # What is OSClb?
 
-OSClb is the load balancer of Open Smart Country, a new project with the intent of revolution land use. It's based on nginx and uses [Let's Encrypt Certificate Authority](https://letsencrypt.org).
+OSClb is the load balancer of Open Smart Country, a new project with the intent of revolution land use.
 
 > [OSClb wiki](https://github.com/ilice/OSClb/wiki)
 
 ![logo](https://raw.githubusercontent.com/ilice/OSCWeb/master/assets/favicon/OpenSmartCountry_logo_128x128.png)
 
 # How to use this image
-
-OSClb needs some app to link and serve and it isn't develope to work in standalone mode.
 
 ## Starting simple nginx HTTP and reverse proxy server
 
@@ -25,20 +23,25 @@ $ docker run teanocrata/osclb
 
 Runs container in background and prints container ID.
 
-## Starting simple nginx HTTP and reverse proxy server
-
-```console
-$ docker run -ti -p 80:80 -d --name nginx teanocrata/osclb
+Then you can hit make a curl to the container ip and port
+```
+$ curl http://<container-ip>:80`
 ```
 
-This binds port 8000 of the container to port 8000 on the host machine.
+## Starting simple nginx HTTP and reverse proxy server and exposing a port in the host machine
 
-Then you can hit `http://localhost:8080` or `http://host-ip:8080` in your browser.
+```console
+$ docker run -ti -p 80:80 -d --name osclb teanocrata/osclb
+```
+
+This binds port 80 of the container to port 80 on the host machine.
+
+Then you can hit `http://localhost:80` or `http://host-ip:80` in your browser.
 
 ## Run a console in the container
 
 ```console
-$ docker exec -ti nginx bash
+$ docker exec -ti osclb bash
 ```
 
 # User Feedback

@@ -63,11 +63,15 @@ else
   # Put your domain name into the nginx reverse proxy config.
 
   sed -i "s/__kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/osc-secure.conf
-  sed -i "s/__kibana.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/osc-secure.conf
+  sed -i "s/__elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/osc-secure.conf
 
   #go!
   kill $(ps aux | grep '[n]ginx' | awk '{print $2}')
   cp /etc/nginx/osc-secure.conf /etc/nginx/conf.d/osc.conf
+
+  cat /etc/nginx/conf.d/osc.conf
+  echo .
+  echo Firing up nginx in the background.
 
   nginx -g 'daemon off;'
 fi

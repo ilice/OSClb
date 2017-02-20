@@ -20,7 +20,18 @@ nginx
 
 # Check user has specified domain name
 if [ -z "$OPENSMARTCOUNTRY_DOMAIN" ]; then
-    echo "WARNING - Need to set OPENSMARTCOUNTRY_DOMAIN (to a letsencrypt-registered name)."
+  echo "WARNING - Need to set OPENSMARTCOUNTRY_DOMAIN (to a letsencrypt-registered name). Stating DEVELOPMENT mode"
+
+  #go dev mode!
+  kill $(ps aux | grep '[n]ginx' | awk '{print $2}')
+  cp /etc/nginx/osc-development.conf /etc/nginx/conf.d/osc.conf
+
+  cat /etc/nginx/conf.d/osc.conf
+  echo .
+  echo Firing up development nginx in the background.
+
+  nginx -g 'daemon off;'
+
 else
 
   if [ -z "$KIBANA_OPENSMARTCOUNTRY_DOMAIN" ]; then

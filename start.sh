@@ -10,6 +10,7 @@ echo replacing __elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN
 echo replacing __jupyter.opensmartcountry.com__/$JUPYTER_OPENSMARTCOUNTRY_DOMAIN
 
 # Put your domain name into the nginx reverse proxy config.
+sed -i "s/__alowedIP__/$ALLOWED_IP/g" /etc/nginx/conf.d/osc.conf
 sed -i "s/__www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/conf.d/osc.conf
 sed -i "s/__kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/conf.d/osc.conf
 sed -i "s/__elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN/g" /etc/nginx/conf.d/osc.conf
@@ -69,6 +70,10 @@ else
     echo Waiting for file privkey.pem to exist
     sleep 2
   done
+
+  echo replacing __alowedIP__/$ALLOWED_IP
+
+  sed -i "s/__alowedIP__/$ALLOWED_IP/g" /etc/nginx/osc-secure.conf
 
   echo replacing __www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN
 

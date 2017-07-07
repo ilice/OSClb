@@ -3,7 +3,7 @@ sleep 3
 
 echo build starting nginx config
 
-
+echo replacing __alowedIP__/$ALLOWED_IP
 echo replacing __www.opensmartcountry.com__/$OPENSMARTCOUNTRY_DOMAIN
 echo replacing __kibana.opensmartcountry.com__/$KIBANA_OPENSMARTCOUNTRY_DOMAIN
 echo replacing __elastic.opensmartcountry.com__/$ELASTIC_OPENSMARTCOUNTRY_DOMAIN
